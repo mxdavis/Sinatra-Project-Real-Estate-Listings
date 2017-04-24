@@ -5,6 +5,17 @@
   </head>
 
   <body>
+    <nav>
+      <a href="/">Home</a>
+      <% if logged_in? %>
+        <a href="/listings">All Listings</a>
+        <a href="/users/user_listings">User Panel</a>
+        <a href="/projects/new">Logout</a>
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Sign In</a>
+      <% end %>
+       </nav>
     <%= yield %>
   </body>
 </html>
