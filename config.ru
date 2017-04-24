@@ -6,5 +6,5 @@ end
 
 use Rack::MethodOverride
 use UserController
-use
+use ListingController
 run ApplicationController
