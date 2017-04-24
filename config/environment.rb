@@ -14,4 +14,3 @@ Dir[File.join(File.dirname(__FILE__), "../app/models", "*.rb")].each {|f| requir
 Dir[File.join(File.dirname(__FILE__), "../app/controllers", "*.rb")].sort.each {|f| require f}
 
 require_all 'app'
-require_all 'lib'
