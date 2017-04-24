@@ -1,0 +1,11 @@
+<h1><%= @user.username %>'s Listings:'</h1>
+<hr>
+
+<% @user.listings.each do |listing| %>
+  <h3> <%= listing.name %> </h3>
+  edit: route to an edit form with the listing id
+  delete: --> Page that says are you sure you want to delete this listing with all the listing, and click yes, and reroute to this page
+  <hr>
+  <% end %>
+
+  Create New Listing:
