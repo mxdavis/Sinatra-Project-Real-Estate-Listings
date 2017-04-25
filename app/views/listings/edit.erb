@@ -1,0 +1,39 @@
+<form action="/listings/<%= @listing.slug %>" method="post">
+  <label for="listing_name">Listing Name</label>
+  <input type="text" name="listing[name]" id="listing_name" value="<%= @listing.name %>">
+  <br></br>
+
+  <label for="listing_price">Listing Price</label>
+  <input type="text" name="listing[price]" id="listing_price" value="<%= @listing.price %>">
+  <br></br>
+
+  <label for="listing_sqm">Listing SQM</label>
+  <input type="text" name="listing[sqm]" id="listing_sqm" value="<%= @listing.sqm %>">
+  <br></br>
+
+  <label>City:</label>  <br></br>
+  <%City.all.each do |city|%>
+    <label><%= city.name %></label>
+    <input type="radio" name="city_ids" id="city_<%=city.id%>" value="<%=city.id%>"<%='checked' if @listing.city == city %>></input>
+  <%end%>
+  <br></br>
+
+  <label>Create A New City</label>
+  <input type="text" name="city[name]" id="new_city"></input>
+  <br></br>
+
+  <label>Amenities:</label>  <br></br>
+  <%Amenity.all.each do |amenity|%>
+    <label><%= amenity.name %></label>
+    <input type="checkbox" name="amenity_ids[]" id="amenity_<%=amenity.id%>" value="<%=amenity.id%>"<%='checked' if @listing.amenities.include?(amenity) %>></input>
+  <%end%>
+  <br></br>
+
+  <label>Create A New Amenity</label>
+  <input type="text" name="amenity[name]" id="new_amenity"></input>
+  <br></br>
+
+  <input type="submit" value="Update Listing">
+
+
+</form>

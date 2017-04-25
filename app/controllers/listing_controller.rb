@@ -44,4 +44,34 @@ class ListingController < ApplicationController
     erb :'/listings/show'
   end
 
+  post '/listings/:slug' do
+    @listing = Listing.find_by_slug(params[:slug])
+    if params[:city][:name] != ""
+      @listing.city = City.find_or_create_by(params[:city])
+    else
+      @listing.city = City.find(params[:city_ids])
+    end
+
+    @listing.amenities.clear
+
+    if params[:amenity][:name] != ""
+      @listing.amenities << Amenity.find_or_create_by(params[:amenity])
+    end
+
+    params[:amenity_ids].each do |id|
+      @listing.amenities << Amenity.find(id)
+    end
+
+    @listing.save
+
+    flash[:message] = "#{@listing.name} has been successfully updated"
+
+    redirect to "/listings/#{@listing.slug}"
+  end
+
+  get '/listings/:slug/edit' do
+    @listing = Listing.find_by_slug(params[:slug])
+    erb :'/listings/edit'
+  end
+
 end
