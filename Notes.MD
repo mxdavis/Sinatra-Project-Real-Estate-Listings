@@ -42,7 +42,7 @@
   Logged in
   slugifiable -->
 
-Edit listings
+<!-- Edit listings -->
   <!-- Form
   Must be logged in
   Make sure only user can edit his own listing -->
@@ -50,17 +50,17 @@ Edit listings
 
 <!-- /listing/slug -->
 
-City
+<!-- City
   Shows cities (with link)
   Click link to see listings in that city /city/slug
-  edit?
+  edit? -->
 
 
-User
+<!-- User -->
   <!-- Login -->
-  Logout
+  <!-- Logout -->
 
-Listing
+<!-- Listing -->
   <!-- Create new
   edit -->
-  delete if belongs to user
+  <!-- delete if belongs to user -->

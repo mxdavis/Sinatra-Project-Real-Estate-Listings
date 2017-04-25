@@ -9,7 +9,8 @@
       <a href="/listings">All Listings</a>
       <% if Helpers.logged_in?(session) %>
         <a href="/users/user_panel">User Panel</a>
-        <a href="/projects/new">Logout</a>
+        <a href="/listings/new">New Listing</a>
+        <a href="/logout">Logout</a>
       <% else %>
         <a href="/signup">Sign Up</a>
         <a href="/login">Sign In</a>
