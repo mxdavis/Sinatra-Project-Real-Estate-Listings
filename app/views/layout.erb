@@ -2,20 +2,28 @@
 <html>
   <head>
     <title>The Greatest Real Estate Listings!</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   </head>
 
   <body>
-    <nav>
-      <a href="/listings">All Listings</a>
-      <% if Helpers.logged_in?(session) %>
-        <a href="/users/user_panel">User Panel</a>
-        <a href="/listings/new">New Listing</a>
-        <a href="/logout">Logout</a>
-      <% else %>
-        <a href="/signup">Sign Up</a>
-        <a href="/login">Sign In</a>
-      <% end %>
-       </nav>
-    <%= yield %>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a class="navbar-brand" href="/listings">All Listings</a></li>
+            <% if Helpers.logged_in?(session) %>
+              <li><a class="navbar-brand" href="/users/user_panel">User Panel</a></li>
+              <li><a class="navbar-brand" href="/listings/new">New Listing</a></li>
+              <li><a class="navbar-brand" href="/logout">Logout</a></li>
+            <% else %>
+              <li><a class="navbar-brand" href="/signup">Sign Up</a></li>
+              <li><a class="navbar-brand" href="/login">Sign In</a></li>
+            <% end %>
+          </ul>
+      </div>
+     </nav>
+     <div id="content" class="clearfix">
+      <%= yield %>
+    </div>
   </body>
 </html>
