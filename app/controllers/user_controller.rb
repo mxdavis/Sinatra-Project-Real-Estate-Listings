@@ -54,8 +54,13 @@ class UserController < ApplicationController
 
   get '/user/:slug' do
     @user = User.find_by_slug(params[:slug])
-    @listings = @user.listings.all
-    erb :'/users/listings'
+    if @user == Helpers.current_user(session)
+      @listings = @user.listings.all
+      erb :'/users/listings'
+    else
+      flash[:message] = "Please login to see your user panel"
+      redirect to "/login"
+    end
   end
 
   get '/logout' do
