@@ -8,6 +8,7 @@ class UserController < ApplicationController
   end
 
   post '/signup' do
+    binding.pry
     if !!(User.find_by(name: params[:user][:name]))
       flash[:message] = "You already have an account, please login"
       redirect to '/login'
@@ -15,7 +16,7 @@ class UserController < ApplicationController
     if !(params[:user].has_value?(""))
 
       @user = User.create(name: params[:user][:name].downcase, password: params[:user][:password])
-      session["user_id"] = user.id
+      session["user_id"] = @user.id
       redirect to "/user/#{@user.slug}"
     else
       redirect to '/signup'
