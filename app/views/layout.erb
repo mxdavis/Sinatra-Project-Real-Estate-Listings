@@ -7,7 +7,7 @@
   <body>
     <nav>
       <a href="/">Home</a>
-      <% if logged_in? %>
+      <% if Helpers.logged_in?(session) %>
         <a href="/listings">All Listings</a>
         <a href="/users/user_listings">User Panel</a>
         <a href="/projects/new">Logout</a>

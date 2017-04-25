@@ -1,0 +1,14 @@
+<% if Helpers.logged_in?(session) %>
+  <h1>Welcome <%= @user %>, here are the latest listings</h1>
+<% else %>
+  <h1>Welcome To The Amazing Real Estate Website</h1>
+<% end %>
+
+<% @listing.reverse.each do |listing| %>
+  <h2><%= listing.name %><h2>
+  <ul>
+    <li>Price: $<%= listing.price %></li>
+    <li>Size: <%= listing.sqm %> sqm</li>
+    <li>City: <%= listing.city %></li>
+  </ul>
+<% end %>

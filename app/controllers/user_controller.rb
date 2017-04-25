@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
   get '/signup' do
-    if logged_in?
+    if Helpers.logged_in?(session)
       redirect to '/user/listings'
     end
     erb :'/users/create_user'
@@ -23,7 +23,7 @@ class UserController < ApplicationController
   end
 
   get '/login' do
-    if logged_in?
+    if Helpers.logged_in?(session)
       redirect to '/users/user_listings'
     end
     erb :'/users/login'
@@ -31,7 +31,7 @@ class UserController < ApplicationController
 
   post '/login' do
   @user = User.find_by(name: params[:user][:name].downcase)
-  	if @user && @user.authenticate(params[:password])
+  	if @user && @user.authenticate(params[:user][:password])
       session["user_id"] = @user.id
       redirect to '/users/user_listings'
     else
@@ -41,7 +41,7 @@ class UserController < ApplicationController
 	end
 
   get '/logout' do
-    if logged_in?
+    if Helpers.logged_in?(session)
       session.clear
     else
       redirect to '/'
