@@ -1,53 +1,54 @@
-Make file directory and config ru, rakefile, gems, layout page make with all the <!DOCTYPE html> <html> (maybe navbar if time)
+<!-- Make file directory and config ru, rakefile, gems, layout page make with all the <!DOCTYPE html> <html> (maybe navbar if time) -->
 
-Make:
+<!-- Make:
   User
     username
     password
-    has many Listings
+    has many Listings -->
 
-  Listings
+  <!-- Listings
     Name
     Price
     SQM
     has_many amenities through listing_amenities
     belongs_to user
-    belongs_to city
+    belongs_to city -->
 
-  City
+  <!-- City
     name
-    has_many Listings
+    has_many Listings -->
 
-  Amenity
+  <!-- Amenity
     name  
-    has many listings through listing_amenities
+    has many listings through listing_amenities -->
 
 
-Application Controller, tables and models for User, Listing, City, Amenity
+<!-- Application Controller, tables and models for User, Listing, City, Amenity -->
 
-Index
-  Page with all listings
+<!-- Index
+  Page with all listings -->
 
-Sign Up:
+<!-- Sign Up:
   Secure password
   Username and password required <-- if not redirect to same page with error
-  Once signed in redirect to page with all users listings with option to edit and delete each
+  Once signed in redirect to page with all users listings with option to edit and delete each -->
 
 
-Sign In
+<!-- Sign In
   Make sure password and username match or else provide error
-  Once signed in redirect to page with all users listings with option to edit and delete each
+  Once signed in redirect to page with all users listings with option to edit and delete each -->
 
-Helpers
+<!-- Helpers
   Logged in
-  slugifiable
+  slugifiable -->
 
 Edit listings
-  Form
+  <!-- Form
   Must be logged in
-  Make sure only user can edit his own listing
+  Make sure only user can edit his own listing -->
+  make sure one of each type is filled out
 
-/listing/slug
+<!-- /listing/slug -->
 
 City
   Shows cities (with link)
@@ -56,10 +57,10 @@ City
 
 
 User
-  Login
+  <!-- Login -->
   Logout
 
 Listing
-  Create new
-  edit
+  <!-- Create new
+  edit -->
   delete if belongs to user

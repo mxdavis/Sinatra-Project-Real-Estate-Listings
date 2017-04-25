@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <form action="/listings/<%= @listing.slug %>" method="post">
   <label for="listing_name">Listing Name</label>
   <input type="text" name="listing[name]" id="listing_name" value="<%= @listing.name %>">

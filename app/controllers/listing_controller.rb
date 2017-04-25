@@ -18,6 +18,15 @@ class ListingController < ApplicationController
   end
 
   post '/listings' do
+    if !check_form_filled_out?(params)
+      flash[:message] = "Please make sure all fields are filled out and your listing belongs to a city, and has at least one amenity"
+      redirect to '/listings/new'
+    end
+
+    if !check_if_listing_name_unique?(params)
+      flash[:message] = "#{@listing.name} has already been taken. Please use a new name"
+      redirect to '/listings/new'
+    end
     @listing = Listing.find_or_create_by(params[:listing])
     if params[:city][:name] != ""
       @listing.city = City.find_or_create_by(params[:city])
@@ -45,7 +54,14 @@ class ListingController < ApplicationController
   end
 
   post '/listings/:slug' do
+
     @listing = Listing.find_by_slug(params[:slug])
+
+    if !check_form_filled_out?(params)
+      flash[:message] = "Please make sure all fields are filled out and your listing belongs to a city, and has at least one amenity"
+      redirect to "/listings/#{@listing.slug}/edit"
+    end
+
     if params[:city][:name] != ""
       @listing.city = City.find_or_create_by(params[:city])
     else
@@ -72,6 +88,18 @@ class ListingController < ApplicationController
   get '/listings/:slug/edit' do
     @listing = Listing.find_by_slug(params[:slug])
     erb :'/listings/edit'
+  end
+
+  helpers do
+    def check_form_filled_out?(params)
+      !params[:listing].has_value?("") && !!(params.has_key?("city_ids") || params[:city][:name] != "") && !!(params.has_key?("amenity_ids") || params[:amenity][:name] != "")
+    end
+
+    def check_if_listing_name_unique?(params)
+      # Otherwise the slug will not work
+      !(@listing = Listing.all.detect{|listing| listing.name == params[:listing][:name].downcase})
+    end
+
   end
 
 end
