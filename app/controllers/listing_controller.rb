@@ -1,15 +1,15 @@
 class ListingController < ApplicationController
 
   get '/listings' do
-    if Helpers.logged_in?(session)
-      @user = Helpers.current_user(session)
+    if logged_in?
+      @user = current_user
     end
     @listings = Listing.all
     erb :'listings/index'
   end
 
   get '/listings/new' do
-    if Helpers.logged_in?(session)
+    if logged_in?
       erb :'listings/new'
     else
       flash[:message] = "You need to login to add a listing"
@@ -41,7 +41,7 @@ class ListingController < ApplicationController
       @listing.amenities << Amenity.find(id)
     end
 
-    @listing.user = Helpers.current_user(session)
+    @listing.user = current_user
 
     @listing.save
 
@@ -86,7 +86,7 @@ class ListingController < ApplicationController
   end
 
   get '/listings/:slug/edit' do
-    if @user = Helpers.current_user(session)
+    if @user = current_user
       @listing = Listing.find_by_slug(params[:slug])
       erb :'/listings/edit'
     else
@@ -96,7 +96,7 @@ class ListingController < ApplicationController
   end
 
   get '/listings/:slug/delete' do
-    if @user = Helpers.current_user(session)
+    if @user = current_user
       @listing = Listing.find_by_slug(params[:slug])
       erb :'/listings/delete'
     else
@@ -106,7 +106,7 @@ class ListingController < ApplicationController
   end
 
   delete '/listings/:slug/delete' do
-    @user = Helpers.current_user(session)
+    @user = current_user
     @listing = Listing.find_by_slug(params[:slug])
     @listing.delete
     flash[:message] = "Your listing has been deleted"
@@ -121,6 +121,14 @@ class ListingController < ApplicationController
     def check_if_listing_name_unique?(params)
       # Otherwise the slug will not work
       !(@listing = Listing.all.detect{|listing| listing.name == params[:listing][:name].downcase})
+    end
+
+    def current_user
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    end
+
+    def logged_in?
+      !!self.current_user
     end
 
   end

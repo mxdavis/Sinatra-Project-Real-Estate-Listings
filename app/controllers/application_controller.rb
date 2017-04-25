@@ -10,11 +10,23 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    if Helpers.logged_in?(session)
+    if logged_in?
       redirect to '/listings'
     end
     @listing = Listing.all
     erb :index
+  end
+
+  helpers do
+
+      def current_user
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+      end
+
+      def logged_in?
+      	!!self.current_user
+      end
+
   end
 
 end

@@ -11,7 +11,7 @@
       <div class="container">
         <ul class="nav navbar-nav">
           <li><a class="navbar-brand" href="/listings">All Listings</a></li>
-            <% if Helpers.logged_in?(session) %>
+            <% if logged_in? %>
               <li><a class="navbar-brand" href="/users/user_panel">User Panel</a></li>
               <li><a class="navbar-brand" href="/listings/new">New Listing</a></li>
               <li><a class="navbar-brand" href="/logout">Logout</a></li>

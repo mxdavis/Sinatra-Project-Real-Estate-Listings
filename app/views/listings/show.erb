@@ -16,7 +16,7 @@
   <% end %>
 </ul>
 
-<% if @listing.user == Helpers.current_user(session) %>
+<% if @listing.user == current_user %>
   <button><a href="/listings/<%= @listing.slug %>/edit">Edit this Listing</a></button>
   <button><a href="/listings/<%= @listing.slug %>/delete">Delete this Listing</a></button>
 <% end %>

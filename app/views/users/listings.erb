@@ -20,7 +20,7 @@
 
       <li>Listing Amenities: <%= @amenities.join(", ") %></li>
 
-      <% if listing.user == Helpers.current_user(session) %>
+      <% if listing.user == current_user %>
         <button><a href="/listings/<%= listing.slug %>/edit">Edit</a></button>
         <button><a href="/listings/<%= listing.slug %>/delete">Delete</a></button>
       </ul>

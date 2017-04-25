@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
   get '/signup' do
-    if Helpers.logged_in?(session)
+    if logged_in?
       redirect to '/user/listings'
     end
     erb :'/users/create_user'
@@ -23,7 +23,7 @@ class UserController < ApplicationController
   end
 
   get '/login' do
-    if Helpers.logged_in?(session)
+    if logged_in?
       @user = User.find(session[:user_id])
       redirect to "/user/#{@user.slug}"
     end
@@ -42,7 +42,7 @@ class UserController < ApplicationController
 	end
 
   get '/users/user_panel' do
-    if @user = Helpers.current_user(session)
+    if @user = current_user
 
       redirect to "/user/#{@user.slug}"
     else
@@ -54,7 +54,7 @@ class UserController < ApplicationController
 
   get '/user/:slug' do
     @user = User.find_by_slug(params[:slug])
-    if @user == Helpers.current_user(session)
+    if @user == current_user
       @listings = @user.listings.all
       erb :'/users/listings'
     else
@@ -66,5 +66,17 @@ class UserController < ApplicationController
   get '/logout' do
     session.clear
     redirect to '/'
+  end
+
+  helpers do
+
+      def current_user
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+      end
+
+      def logged_in?
+      	!!self.current_user
+      end
+
   end
 end
