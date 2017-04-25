@@ -1,7 +1,18 @@
 <h1><%= @listing.name %></h1>
 
+
+<h2>Price: $<%= @listing.price %></h2>
+<h2>Size: <%= @listing.sqm %> sqm</h2>
+<h2>City: <a href="/cities/<%= @listing.city.slug %>"><%= @listing.city.name %></a></h2>
+
+<h3>Amenities:</h3>
 <ul>
-  <li>Price: $<%= @listing.price %></li>
-  <li>Size: <%= @listing.sqm %> sqm</li>
-  <li>City: <a href="/cities/<%= @listing.city.slug %>"><%= @listing.city.name %></a>
+  <% @listing.amenities.each do |amenity| %>
+    <li><%= amenity.name %></li>
+  <% end %>
 </ul>
+
+<% if @listing.user == Helpers.current_user(session) %>
+  <button><a href="/listings/<%= @listing.slug %>/edit">Edit this Listing</a></button>
+  <button><a href="/listings/<%= @listing.slug %>/delete">Delete this Listing</a></button>
+<% end %>

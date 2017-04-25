@@ -32,6 +32,8 @@ class ListingController < ApplicationController
       @listing.amenities << Amenity.find(id)
     end
 
+    @listing.user = Helpers.current_user(session)
+
     @listing.save
 
     redirect to "/listings/#{@listing.slug}"
