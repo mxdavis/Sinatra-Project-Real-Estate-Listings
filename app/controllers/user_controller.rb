@@ -8,7 +8,6 @@ class UserController < ApplicationController
   end
 
   post '/signup' do
-    binding.pry
     if !!(User.find_by(name: params[:user][:name]))
       flash[:message] = "You already have an account, please login"
       redirect to '/login'
