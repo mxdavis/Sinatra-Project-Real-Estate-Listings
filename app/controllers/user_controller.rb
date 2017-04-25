@@ -14,9 +14,9 @@ class UserController < ApplicationController
     end
     if !(params[:user].has_value?(""))
 
-      user = User.create(name: params[:user][:name].downcase, password: params[:user][:password])
+      @user = User.create(name: params[:user][:name].downcase, password: params[:user][:password])
       session["user_id"] = user.id
-      redirect to '/users/user_listings'
+      redirect to "/user/#{@user.slug}"
     else
       redirect to '/signup'
     end
@@ -24,7 +24,8 @@ class UserController < ApplicationController
 
   get '/login' do
     if Helpers.logged_in?(session)
-      redirect to '/users/user_listings'
+      @user = User.find(session[:user_id])
+      redirect to "/user/#{@user.slug}"
     end
     erb :'/users/login'
   end
@@ -33,12 +34,29 @@ class UserController < ApplicationController
   @user = User.find_by(name: params[:user][:name].downcase)
   	if @user && @user.authenticate(params[:user][:password])
       session["user_id"] = @user.id
-      redirect to '/users/user_listings'
+      redirect to "/user/#{@user.slug}"
     else
       flash[:message] = "Username and/or password are not correct. Please try again or signup for an account"
       redirect to "/login"
     end
 	end
+
+  get '/users/user_panel' do
+    if @user = Helpers.current_user(session)
+
+      redirect to "/user/#{@user.slug}"
+    else
+      flash[:message] = "Please login to see your user panel"
+
+      redirect to "/login"
+    end
+  end
+
+  get '/user/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    @listings = @user.listings.all
+    erb :'/users/listings'
+  end
 
   get '/logout' do
     if Helpers.logged_in?(session)

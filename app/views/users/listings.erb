@@ -1,0 +1,24 @@
+<h1>Welcome <%=@user.name.capitalize%>!</h1>
+
+<h2><a href="/listings/new">Create a new listing</a></h2>
+<br></br>
+<h2><%=@user.name.capitalize%>'s Listings:</h2>
+
+  <% @listings.each do |listing| %>
+    <ul>
+      <h3><a href="/listings/<%= listing.slug %>"><%= listing.name %></a></h3>
+      <li>Listing Price: $<%= listing.price %></li>
+      <li>Listing Size: <%= listing.sqm %> sqm</li>
+      <li><a href="/cities/<%= listing.city.slug %>">Listing City: <%= listing.city.name %></a></li>
+
+      <% @amenities = [];
+      listing.amenities.each {|amenity| @amenities << amenity.name} %>
+
+      <li>Listing Amenities: <%= @amenities.join(", ") %></li>
+
+      <% if listing.user == Helpers.current_user(session) %>
+        <button><a href="/listings/<%= listing.slug %>/edit">Edit</a></button>
+        <button><a href="/listings/<%= listing.slug %>/delete">Delete</a></button>
+      </ul>
+    <% end %>
+  <% end %>
