@@ -7,14 +7,14 @@
   <input type="text" name="listing[price]" id="listing_price">
   <br></br>
 
-  <label for="listing_sqm">Listing Price</label>
+  <label for="listing_sqm">Listing SQM</label>
   <input type="text" name="listing[sqm]" id="listing_sqm">
   <br></br>
 
   <label>City:</label>  <br></br>
   <%City.all.each do |city|%>
     <label><%= city.name %></label>
-    <input type="radio" name="figure[city_ids][]" id="city_<%=city.id%>" value="<%=city.id%>"</input>
+    <input type="radio" name="city_ids" id="city_<%=city.id%>" value="<%=city.id%>"</input>
   <%end%>
   <br></br>
 
@@ -25,7 +25,7 @@
   <label>Amenities:</label>  <br></br>
   <%Amenity.all.each do |amenity|%>
     <label><%= amenity.name %></label>
-    <input type="checkbox" name="figure[amenity_ids][]" id="amenity_<%=amenity.id%>" value="<%=amenity.id%>"</input>
+    <input type="checkbox" name="amenity_ids[]" id="amenity_<%=amenity.id%>" value="<%=amenity.id%>"</input>
   <%end%>
   <br></br>
 

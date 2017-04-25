@@ -11,22 +11,35 @@ class ListingController < ApplicationController
   get '/listings/new' do
     if Helpers.logged_in?(session)
       erb :'listings/new'
+    else
+      flash[:message] = "You need to login to add a listing"
+      redirect to '/login'
     end
-    flash[:message] = "You need to login to add a listing"
-    redirect to '/login'
   end
 
   post '/listings' do
-    binding.pry
-    listing = Listing.create(params[:listing])
-    if params[:title][:name] != ""
-      listing.titles << Title.create(params[:title])
+    @listing = Listing.find_or_create_by(params[:listing])
+    if params[:city][:name] != ""
+      @listing.city = City.find_or_create_by(params[:city])
+    else
+      @listing.city = City.find(params[:city_ids])
     end
-    if params[:landmark][:name] != ""
-      listing.landmarks << Landmark.create(params[:landmark])
+    if params[:amenity][:name] != ""
+      @listing.amenities << Amenity.find_or_create_by(params[:amenity])
     end
 
-    redirect to "/listings/#{listing.slug}"
+    params[:amenity_ids].each do |id|
+      @listing.amenities << Amenity.find(id)
+    end
+
+    @listing.save
+
+    redirect to "/listings/#{@listing.slug}"
+  end
+
+  get '/listings/:slug' do
+    @listing = Listing.find_by_slug(params[:slug])
+    erb :'/listings/show'
   end
 
 end

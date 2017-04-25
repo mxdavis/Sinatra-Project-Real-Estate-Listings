@@ -1,0 +1,10 @@
+<h1><%= @city.name %></h1>
+
+<% @city.listings.reverse.each do |listing| %>
+  <h2><em><a href="/listings/<%= listing.slug %>"><%= listing.name %></a></em></h2>
+  <ul>
+    <li>Price: $<%= listing.price %></li>
+    <li>Size: <%= listing.sqm %> sqm</li>
+    <li>City: <a href="/cities/<%= listing.city.slug %>"><%= listing.city.name %></a>
+  </ul>
+<% end %>

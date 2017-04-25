@@ -6,9 +6,8 @@
 
   <body>
     <nav>
-      <a href="/">Home</a>
+      <a href="/listings">All Listings</a>
       <% if Helpers.logged_in?(session) %>
-        <a href="/listings">All Listings</a>
         <a href="/users/user_listings">User Panel</a>
         <a href="/projects/new">Logout</a>
       <% else %>
