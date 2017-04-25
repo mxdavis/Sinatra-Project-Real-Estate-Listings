@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-
+  
   get '/signup' do
     if logged_in?
       redirect to '/user/listings'
@@ -9,7 +9,7 @@ class UserController < ApplicationController
 
   post '/signup' do
     if !!(User.find_by(name: params[:user][:name]))
-      # flash -> you are already a user
+      flash[:message] = "You already have an account, please login"
       redirect to '/login'
     end
     if !(params[:user].has_value?(""))
@@ -35,7 +35,7 @@ class UserController < ApplicationController
       session["user_id"] = @user.id
       redirect to '/users/user_listings'
     else
-      # flash something was not right
+      flash[:message] = "Username and/or password are not correct. Please try again or signup for an account"
       redirect to "/login"
     end
 	end

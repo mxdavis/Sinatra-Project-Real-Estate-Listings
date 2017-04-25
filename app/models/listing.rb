@@ -5,6 +5,6 @@ class Listing < ActiveRecord::Base
   belongs_to :user
   belongs_to :city
 
-  # include Slugifiable::InstanceMethods
-  # extend Slugifiable::ClassMethods
+  include Slugifiable::InstanceMethods
+  extend Slugifiable::ClassMethods
 end
