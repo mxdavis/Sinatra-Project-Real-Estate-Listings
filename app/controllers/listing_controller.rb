@@ -86,8 +86,31 @@ class ListingController < ApplicationController
   end
 
   get '/listings/:slug/edit' do
+    if @user = Helpers.current_user(session)
+      @listing = Listing.find_by_slug(params[:slug])
+      erb :'/listings/edit'
+    else
+      flash[:message] = "Please login to edit your listing"
+      redirect to "/login"
+    end
+  end
+
+  get '/listings/:slug/delete' do
+    if @user = Helpers.current_user(session)
+      @listing = Listing.find_by_slug(params[:slug])
+      erb :'/listings/delete'
+    else
+      flash[:message] = "Please login to delete your listing"
+      redirect to "/login"
+    end
+  end
+
+  delete '/listings/:slug/delete' do
+    @user = Helpers.current_user(session)
     @listing = Listing.find_by_slug(params[:slug])
-    erb :'/listings/edit'
+    @listing.delete
+    flash[:message] = "Your listing has been deleted"
+    redirect to "/user/#{@user.slug}"
   end
 
   helpers do

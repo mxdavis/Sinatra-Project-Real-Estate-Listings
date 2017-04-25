@@ -46,7 +46,7 @@ Edit listings
   <!-- Form
   Must be logged in
   Make sure only user can edit his own listing -->
-  make sure one of each type is filled out
+  <!-- make sure one of each type is filled out -->
 
 <!-- /listing/slug -->
 
