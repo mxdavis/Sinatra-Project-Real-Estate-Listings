@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   include Slugifiable::InstanceMethods
   # extend Slugifiable::ClassMethods
 
-  def find_by_slug(slug)
+  def self.find_by_slug(slug)
     self.all.detect do |s|
       s.name.downcase == slug.gsub("-", " ")
     end
