@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :password_digest
 
   include Slugifiable::InstanceMethods
-  extend Slugifiable::ClassMethods
+  # extend Slugifiable::ClassMethods
+
+  def find_by_slug(slug)
+    self.all.detect do |s|
+      s.name.downcase == slug.gsub("-", " ")
+    end
+  end
 
 end
